@@ -27,13 +27,14 @@ public class DatabaseConduit {
         // record transaction
         UserRecord sender = queryUser(transaction.getSenderId());
         UserRecord recipient = queryUser(transaction.getRecipientId());
-        TransactionRecord transactionRecord = new TransactionRecord(sender, recipient, transaction.getAmount());
+        TransactionRecord transactionRecord = new TransactionRecord(sender, recipient, transaction.getAmount(),
+                transaction.getIncentive());
         transactionRecordRepository.save(transactionRecord);
 
         // update user balances
         sender.setBalance(sender.getBalance() - transaction.getAmount());
         save(sender);
-        recipient.setBalance(recipient.getBalance() + transaction.getAmount());
+        recipient.setBalance(recipient.getBalance() + transaction.getAmount() + transaction.getIncentive());
         save(recipient);
     }
 
