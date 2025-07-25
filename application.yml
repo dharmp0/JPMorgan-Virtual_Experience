@@ -3,7 +3,6 @@ spring:
     consumer:
       auto-offset-reset: earliest
       group-id: midas
-      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
       value-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
       properties:
         spring:
@@ -11,9 +10,9 @@ spring:
             trusted:
               packages: "*"
     producer:
-      key-serializer: org.apache.kafka.common.serialization.StringSerializer
       value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
-    bootstrap-servers: ${KAFKA_BOOTSTRAP_SERVERS:localhost:9092}
+server:
+  port: 33400
 
 general:
-  kafka-topic: transaction
+  kafka-topic: "transaction"
